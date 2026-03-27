@@ -6,6 +6,7 @@
 #include <exception>
 #include <memory>
 #include <stdexcept>
+#include <utility>
 #include <thread>
 
 DoorTimerAdapter::DoorTimerAdapter(TimedDoor &timedDoor) : _door(timedDoor) {}
