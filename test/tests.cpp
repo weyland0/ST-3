@@ -2,30 +2,30 @@
 
 #include "TimedDoor.h"
 
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #include <chrono>
 #include <memory>
 #include <thread>
-
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
 
 using ::testing::_;
 using ::testing::StrictMock;
 
 class MockTimerClient : public TimerClient {
-public:
+ public:
   MOCK_METHOD(void, Timeout, (), (override));
 };
 
 class MockTimer : public Timer {
-public:
+ public:
   MOCK_METHOD(void, tregister, (int, std::shared_ptr<TimerClient>), (override));
   MOCK_METHOD(void, cancel, (), (override));
   MOCK_METHOD(void, wait, (), (override));
 };
 
 class TimedDoorRealTimerTest : public ::testing::Test {
-protected:
+ protected:
   TimedDoor *door{nullptr};
 
   void SetUp() override { door = new TimedDoor(20); }
@@ -34,7 +34,7 @@ protected:
 };
 
 class TimedDoorMockTimerTest : public ::testing::Test {
-protected:
+ protected:
   TimedDoor *door{nullptr};
   StrictMock<MockTimer> *mock_timer{nullptr};
 
